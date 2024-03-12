@@ -4,4 +4,5 @@
     <string name="app_setting">设置</string>
     <string name="app_about">关于</string>
     <string name="dialog_alert_tip">提示</string>
+    <string name="xposed_description">澎湃定制灵动岛</string>
 </resources>

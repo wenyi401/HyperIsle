@@ -41,6 +41,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init() {
-        StatusBarUtil.with(this).setTransparentStatusBar().setTransparentNavigationBar();
+        // StatusBarUtil.with(this).setTransparentStatusBar().setTransparentNavigationBar();
     }
+
+
 }

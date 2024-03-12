@@ -1,5 +1,7 @@
 package art.luaj.hyperisle.ui.activity;
 
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
