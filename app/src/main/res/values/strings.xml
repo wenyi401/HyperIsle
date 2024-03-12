@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HyperIsle</string>
+    <string name="app_main">主页</string>
+    <string name="app_setting">设置</string>
+    <string name="app_about">关于</string>
+    <string name="dialog_alert_tip">提示</string>
+</resources>
