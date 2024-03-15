@@ -1,8 +1,11 @@
-package art.luaj.hyperisle.ui.fragment;
+package art.luaj.hyperisle.ui.fragment
 
-import art.luaj.hyperisle.ext.BaseFragment;
+import androidx.lifecycle.ViewModel
+import art.luaj.hyperisle.databinding.FragmentSettingsBinding
+import art.luaj.hyperisle.ui.base.BaseFragment
 
-public class SettingsFragment extends BaseFragment {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding, ViewModel>(FragmentSettingsBinding::inflate, null) {
+    override fun initFragment(binding: FragmentSettingsBinding, viewModel: ViewModel?) {
 
-
+    }
 }
