@@ -31,7 +31,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/setLLPackageName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -58,12 +57,17 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/setTvDefPackageName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="副"
                 android:textSize="14sp" />
         </LinearLayout>
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp" />
+
     </LinearLayout>
 
 </LinearLayout>
