@@ -3,6 +3,18 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def keyProps = new Properties()
+def keyPropsFile = rootProject.file('keystore/keystore.properties')
+if (keyPropsFile.exists()) {
+    keyProps.load(new FileInputStream(keyPropsFile))
+}
+
+def versionProps = new Properties()
+def versionPropsFile = rootProject.file('version.properties')
+if (versionPropsFile.exists()) {
+    versionProps.load(new FileInputStream(versionPropsFile))
+}
+
 android {
     namespace 'art.luaj.hyperisle'
     compileSdk 34
@@ -11,8 +23,8 @@ android {
         applicationId "art.luaj.hyperisle"
         minSdk 33
         targetSdk 34
-        versionCode 1
-        versionName "1.0.000"
+        versionCode versionProps['versionCode'].toInteger()
+        versionName versionProps['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,8 +46,18 @@ android {
         viewBinding = true
     }
 
+    signingConfigs {
+        release {
+            keyAlias keyProps['keyAlias']
+            keyPassword keyProps['keyPassword']
+            storeFile keyProps['storeFile'] ? file(keyProps['storeFile']) : null
+            storePassword keyProps['storePassword']
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -60,6 +82,5 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.preference)
-    implementation(libs.androidx.recyclerview)
     implementation(libs.material)
 }
