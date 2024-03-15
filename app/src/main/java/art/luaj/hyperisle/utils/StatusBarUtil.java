@@ -1,4 +1,4 @@
-package art.luaj.hyperisle.util;
+package art.luaj.hyperisle.utils;
 
 import android.app.Activity;
 import android.graphics.Color;

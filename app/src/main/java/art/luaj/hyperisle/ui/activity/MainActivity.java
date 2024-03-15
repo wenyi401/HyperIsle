@@ -13,7 +13,6 @@ import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.databinding.ActivityMainBinding;
 import art.luaj.hyperisle.ext.BaseActivity;
 import art.luaj.hyperisle.ext.Tools;
-import art.luaj.hyperisle.util.StatusBarUtil;
 
 public class MainActivity extends BaseActivity {
     private Context context;
