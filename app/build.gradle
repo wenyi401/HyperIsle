@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -16,10 +17,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    packaging {
+    packagingOptions {
         resources {
             excludes += "META-INF/**"
             excludes += "kotlin/**"
+            excludes += "kotlin-tooling-metadata.json"
+            excludes += "okhttp3/**"
             excludes += "org/**"
             excludes += "**.properties"
             excludes += "**.bin"
@@ -41,6 +44,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
     }
 }
 
