@@ -26,3 +26,8 @@ jobs:
       run: |
         ./gradlew assemble
         ./gradlew bundleRelease
+    - name: Upload APK
+      uses: actions/upload-artifact@master
+      with:
+        name: HyperIsle.apk
+        path: ${{ github.workspace }}/app/build/outputs/apk/release
