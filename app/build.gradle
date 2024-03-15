@@ -34,7 +34,24 @@ android {
         viewBinding = true
     }
 
+    signingConfigs {
+        githubConfig {
+            String tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/keystore.jks"
+            storeFile = file(tmpFilePath)
+            storePassword System.getenv("SIGNING_KEY_PASSWORD")
+            keyAlias System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword System.getenv("SIGNING_KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
+        github {
+            signingConfig signingConfigs.githubConfig
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
         release {
             minifyEnabled true
             shrinkResources true
@@ -60,6 +77,5 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.preference)
-    implementation(libs.androidx.recyclerview)
     implementation(libs.material)
 }
