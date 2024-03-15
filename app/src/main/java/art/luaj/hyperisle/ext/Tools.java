@@ -2,8 +2,11 @@ package art.luaj.hyperisle.ext;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -92,4 +95,13 @@ public class Tools {
         }
     }
 
+    public static WindowManager.LayoutParams getWindowParam(int width, int height, int flags) {
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(width, height, WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY, flags, PixelFormat.TRANSLUCENT);
+        layoutParams.setTitle("HyperIsle");
+        return layoutParams;
+    }
+
+    public static int dp(Context context ,int number) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, number, context.getResources().getDisplayMetrics());
+    }
 }
