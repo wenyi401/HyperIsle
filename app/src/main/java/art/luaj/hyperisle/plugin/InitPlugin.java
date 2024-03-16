@@ -1,15 +1,21 @@
 package art.luaj.hyperisle.plugin;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 
+import art.luaj.hyperisle.BuildConfig;
+import art.luaj.hyperisle.HookInit;
 import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.ext.Config;
 import art.luaj.hyperisle.ext.Tools;
@@ -26,20 +32,21 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class InitPlugin {
     private XC_LoadPackage.LoadPackageParam loadPackageParam;
+    private Context modContext;
+    private WindowManager.LayoutParams mWindow;
     private XSharedPre xSharedPre;
     private DisplayMetrics displayMetrics = new DisplayMetrics();
     private WindowManager mWindowManager;
-    private WindowManager.LayoutParams mParams;
     private View mDarkContent; // view
     private int minWidth; // view min width
     private int minHeight; // view min height
     private int mView_x;
     private int mView_y;
     private boolean mSiteMode; // view site
-    private Context mContext;
     public InitPlugin(XC_LoadPackage.LoadPackageParam loadPackageParam) {
         this.loadPackageParam = loadPackageParam;
-        initContext();
+        this.modContext = HookInit.modContext;
+        this.mWindow =  HookInit.mWindow;
     }
 
     public static InitPlugin with(XC_LoadPackage.LoadPackageParam loadPackageParam) {
@@ -52,38 +59,6 @@ public class InitPlugin {
         plugins.add(new NotifyPlugin()); // add
         plugins.add(new StrongToastPlugin()); //add
         return plugins;
-    }
-
-    public static Class<?> getClass(XC_LoadPackage.LoadPackageParam lpparam, String classname) {
-        try {
-            return lpparam.classLoader.loadClass(classname);
-        } catch (ClassNotFoundException e) {
-            XposedBridge.log(e);
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public Class<?> findClass(String classname) {
-        return getClass(this.loadPackageParam, classname);
-    }
-
-    public void initContext() {
-        String classVer;
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            classVer = Config.DaggerReferenceGlobalRootComponent;
-        } else {
-            classVer = Config.DaggerGlobalRootComponent;
-        }
-        XposedHelpers.findAndHookMethod(
-                findClass(classVer),
-                "mainResources",
-                new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                        mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "context");
-                    }
-                });
     }
 
     private void initArg() {
@@ -105,29 +80,27 @@ public class InitPlugin {
              mView_y = (int) (sp.optFloat("overlay_y", 0.67f) * 0.01f * displayMetrics.heightPixels);
         }
         */
-        minWidth = 1000;
-        minHeight = 400;
+        minWidth = dp(100);
+        minHeight = dp(40);
         mSiteMode = true;
         mView_x = 0;
         mView_y = 0;
     }
 
-    private void initWindow() {
-        this.mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+    private void initWindowManager() {
+        this.mWindowManager = (WindowManager) modContext.getSystemService(Context.WINDOW_SERVICE);
         this.mWindowManager.getDefaultDisplay().getMetrics(displayMetrics);
     }
 
-    private WindowManager.LayoutParams getWindowParam() {
+    private WindowManager.LayoutParams initWindowParam() {
         int flags = WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
                 | WindowManager.LayoutParams.FLAG_FULLSCREEN
                 | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
                 | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
-        WindowManager.LayoutParams mParams = Tools.getWindowParam(minWidth, minHeight, flags);
-
-        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.mDarkContent = layoutInflater.inflate(XResources.getLayout(R.layout.overlay_main), null);
+        WindowManager.LayoutParams mParams = Tools.getWindowParam(minWidth,  minHeight, flags);
+        mParams.flags =  flags;
         if (mSiteMode) {
             mParams.gravity = Gravity.TOP | Gravity.CENTER;
         } else {
@@ -139,11 +112,16 @@ public class InitPlugin {
     }
 
     public InitPlugin init() {
-        if (mDarkContent == null && mWindowManager == null && mContext != null) {
+        if (mDarkContent == null && mWindowManager == null) {
             initArg();
-            initWindow();
-            this.mParams = getWindowParam();
-            start();
+            initWindowManager();
+            mWindow = initWindowParam();
+            LayoutInflater layoutInflater = (LayoutInflater) modContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.mDarkContent = layoutInflater.inflate((R.layout.overlay_main), null);
+            LinearLayout layout = this.mDarkContent.findViewById(R.id.vertical_main);
+
+            XposedBridge.log("!!!!!!!!!!!!!!!!!!!!!! " + layout.getWidth());
+            mWindowManager.addView(mDarkContent, mWindow);
         }
         return this;
     }
@@ -157,18 +135,7 @@ public class InitPlugin {
         return this.xSharedPre;
     }
 
-    public void start() {
-        try {
-            if (mDarkContent.getWindowToken() == null) {
-                if (mDarkContent.getParent() == null) {
-                    mWindowManager.addView(mDarkContent, mParams);
-                }
-            }
-        } catch (Exception e) {
-        }
-    }
-
     public int dp(int number) {
-        return Tools.dp(mContext, number);
+        return Tools.dp(modContext, number);
     }
 }

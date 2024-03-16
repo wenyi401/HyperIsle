@@ -5,4 +5,6 @@
     <string name="app_about">关于</string>
     <string name="dialog_alert_tip">提示</string>
     <string name="xposed_description">澎湃定制灵动岛</string>
+    <string name="prefs_title_hide_icon">隐藏桌面图标</string>
+    <string name="prefs_title_hide_icon_summary">隐藏后在xp框架启动应用</string>
 </resources>

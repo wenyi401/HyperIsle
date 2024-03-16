@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,6 +100,23 @@ public class Tools {
     public static WindowManager.LayoutParams getWindowParam(int width, int height, int flags) {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(width, height, WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY, flags, PixelFormat.TRANSLUCENT);
         layoutParams.setTitle("HyperIsle");
+        /*
+        try {
+            layoutParams = getWindowParam(width, height, flags);
+            Method setTrustedOverlay = layoutParams.getClass().getMethod("setTrustedOverlay");
+            setTrustedOverlay.invoke(layoutParams);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            // 方法不存在
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            // 访问权限异常
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+            // 调用目标异常
+        }
+         */
+
         return layoutParams;
     }
 
