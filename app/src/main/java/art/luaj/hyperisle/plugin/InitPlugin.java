@@ -94,11 +94,15 @@ public class InitPlugin {
 
     private WindowManager.LayoutParams initWindowParam() {
         int flags = WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                | WindowManager.LayoutParams.FLAG_FULLSCREEN
-                | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
+            | WindowManager.LayoutParams.FLAG_FULLSCREEN
+            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        flags |= WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+           flags |= WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        }
         WindowManager.LayoutParams mParams = Tools.getWindowParam(minWidth,  minHeight, flags);
         mParams.flags =  flags;
         if (mSiteMode) {
