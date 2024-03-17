@@ -1,6 +1,6 @@
 package art.luaj.hyperisle.plugin.Media;
 
-import art.luaj.hyperisle.plugin.BasePlugin;
+import art.luaj.hyperisle.ext.BasePlugin;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class MediaPlugin extends BasePlugin {

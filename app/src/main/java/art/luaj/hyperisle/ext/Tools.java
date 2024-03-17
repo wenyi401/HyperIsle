@@ -22,6 +22,7 @@ import java.util.Map;
 
 import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.ui.dialog.BlurDialogBuilder;
+import de.robv.android.xposed.XposedBridge;
 
 public class Tools {
     public static void showAlert(Context context, String text, boolean cancelable) {
@@ -97,25 +98,15 @@ public class Tools {
         }
     }
 
-    public static WindowManager.LayoutParams getWindowParam(int width, int height, int flags) {
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(width, height, WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY, flags, PixelFormat.TRANSLUCENT);
-        layoutParams.setTitle("HyperIsle");
-        /*
+    public static WindowManager.LayoutParams getWindowParam(int width, int height) {
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(width, height, 2017, 0x01800738, -3);
         try {
-            layoutParams = getWindowParam(width, height, flags);
             Method setTrustedOverlay = layoutParams.getClass().getMethod("setTrustedOverlay");
+            setTrustedOverlay.setAccessible(true);
             setTrustedOverlay.invoke(layoutParams);
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            // 方法不存在
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            // 访问权限异常
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            // 调用目标异常
         }
-         */
 
         return layoutParams;
     }

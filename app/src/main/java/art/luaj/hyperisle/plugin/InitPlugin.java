@@ -1,38 +1,31 @@
 package art.luaj.hyperisle.plugin;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import java.util.ArrayList;
 
-import art.luaj.hyperisle.BuildConfig;
 import art.luaj.hyperisle.HookInit;
 import art.luaj.hyperisle.R;
-import art.luaj.hyperisle.ext.Config;
+import art.luaj.hyperisle.ext.BasePlugin;
 import art.luaj.hyperisle.ext.Tools;
-import art.luaj.hyperisle.ext.XResources;
 import art.luaj.hyperisle.ext.XSharedPre;
 import art.luaj.hyperisle.plugin.Media.MediaPlugin;
 import art.luaj.hyperisle.plugin.Notify.NotifyPlugin;
 import art.luaj.hyperisle.plugin.StrongToast.StrongToastPlugin;
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedBridge;
-import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class InitPlugin {
     private XC_LoadPackage.LoadPackageParam loadPackageParam;
     private Context modContext;
+    private BasePlugin modPlugin;
     private WindowManager.LayoutParams mWindow;
     private XSharedPre xSharedPre;
     private DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -93,18 +86,7 @@ public class InitPlugin {
     }
 
     private WindowManager.LayoutParams initWindowParam() {
-        int flags = WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-            | WindowManager.LayoutParams.FLAG_FULLSCREEN
-            | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
-
-if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        flags |= WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        } else {
-           flags |= WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-        }
-        WindowManager.LayoutParams mParams = Tools.getWindowParam(minWidth,  minHeight, flags);
-        mParams.flags =  flags;
+        WindowManager.LayoutParams mParams = Tools.getWindowParam(minWidth,  minHeight);
         if (mSiteMode) {
             mParams.gravity = Gravity.TOP | Gravity.CENTER;
         } else {
@@ -115,17 +97,28 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         return mParams;
     }
 
+    private void onBind() {
+        View view = modPlugin.onBind();
+        View bind = this.mDarkContent.findViewById(R.id.vertical_bind);
+        if (bind != null) {
+            // 刷新时删除上一个
+            ViewGroup parent = (ViewGroup) bind.getParent();
+            parent.removeView(parent);
+            parent.addView(view);
+            this.mWindowManager.updateViewLayout(this.mDarkContent, this.mWindow);
+        }
+    }
+
     public InitPlugin init() {
         if (mDarkContent == null && mWindowManager == null) {
             initArg();
             initWindowManager();
             mWindow = initWindowParam();
             LayoutInflater layoutInflater = (LayoutInflater) modContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.mDarkContent = layoutInflater.inflate((R.layout.overlay_main), null);
+            this.mDarkContent = layoutInflater.inflate(R.layout.overlay_main, null);
             LinearLayout layout = this.mDarkContent.findViewById(R.id.vertical_main);
-
-            XposedBridge.log("!!!!!!!!!!!!!!!!!!!!!! " + layout.getWidth());
             mWindowManager.addView(mDarkContent, mWindow);
+            modPlugin.onCreate(this.modContext, this.loadPackageParam);
         }
         return this;
     }
