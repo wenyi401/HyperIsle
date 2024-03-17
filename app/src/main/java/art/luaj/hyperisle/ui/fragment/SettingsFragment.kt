@@ -10,7 +10,7 @@ import art.luaj.hyperisle.ui.base.BaseFragment
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding, ViewModel>(FragmentSettingsBinding::inflate, null) {
     override fun initFragment(binding: FragmentSettingsBinding, viewModel: ViewModel?) {
-        childFragmentManager.beginTransaction().add(R.id.setting_container, PreferenceFragment()).commitNow()
+
     }
 
     class PreferenceFragment : PreferenceFragmentCompat() {
