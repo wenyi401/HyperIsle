@@ -15,6 +15,7 @@ import art.luaj.hyperisle.HookInit;
 import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.ext.BasePlugin;
 import art.luaj.hyperisle.ext.Tools;
+import art.luaj.hyperisle.ext.XResources;
 import art.luaj.hyperisle.ext.XSharedPre;
 import art.luaj.hyperisle.plugin.Media.MediaPlugin;
 import art.luaj.hyperisle.plugin.Notify.NotifyPlugin;
