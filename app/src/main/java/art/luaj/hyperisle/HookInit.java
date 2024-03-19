@@ -1,19 +1,11 @@
 package art.luaj.hyperisle;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.XModuleResources;
 import android.os.Build;
-import android.os.IBinder;
 import android.view.WindowManager;
 
-import androidx.annotation.Nullable;
-
 import art.luaj.hyperisle.ext.Config;
-import art.luaj.hyperisle.ext.XResources;
-import art.luaj.hyperisle.plugin.InitPlugin;
+import art.luaj.hyperisle.plugin.PluginController;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
@@ -27,20 +19,20 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     private XSharedPreferences MODULE_SP;
     private String MODULE_CLASS;
     private XC_LoadPackage.LoadPackageParam loadPackageParam;
-    public static Context mContext;
-    public static WindowManager.LayoutParams mWindow;
-    public static Context modContext;
+    private Context mContext;
+
+    public static XSharedPreferences getSharedPreferences(String key) {
+        XSharedPreferences sp = new XSharedPreferences(BuildConfig.APPLICATION_ID, key);
+        sp.makeWorldReadable();
+        return sp;
+    }
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         String packageName = loadPackageParam.packageName;
-        this.loadPackageParam = loadPackageParam;
         if (packageName.equals(Config.SystemUiPackage)) {
-            //initWindow();
+            this.loadPackageParam = loadPackageParam;
             MODULE_SP = getSharedPreferences(Config.DEFAULT_STORAGE);
-            XposedBridge.log(MODULE_PATH);
-            XModuleResources res = XModuleResources.createInstance(MODULE_PATH, null);
-            XResources.init(res); // init
 
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 MODULE_CLASS = Config.DaggerReferenceGlobalRootComponent;
@@ -54,17 +46,8 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "context");
-                        try {
-                            if (modContext  == null) {
-                                modContext = HookInit.mContext.createPackageContext(BuildConfig.APPLICATION_ID,
-                                    Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
-                            }
-                        } catch (PackageManager.NameNotFoundException e) {
-                            XposedBridge.log("失败");
-                        }
-                        InitPlugin plugins = InitPlugin.with(loadPackageParam);
-                        plugins.setXSharedPre(MODULE_SP);
-                        plugins.init();
+                        PluginController pluginController = new PluginController(mContext, loadPackageParam);
+                        pluginController.init();
                     }
                 });
         }
@@ -75,13 +58,7 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
         this.MODULE_PATH = startupParam.modulePath;
     }
 
-    public static XSharedPreferences getSharedPreferences(String key) {
-        XSharedPreferences sp = new XSharedPreferences(BuildConfig.APPLICATION_ID, key);
-        sp.makeWorldReadable();
-        return sp;
-    }
-
-    public static Class<?> getClass(XC_LoadPackage.LoadPackageParam lpparam, String classname) {
+    private Class<?> getClass(XC_LoadPackage.LoadPackageParam lpparam, String classname) {
         try {
             return lpparam.classLoader.loadClass(classname);
         } catch (ClassNotFoundException e) {

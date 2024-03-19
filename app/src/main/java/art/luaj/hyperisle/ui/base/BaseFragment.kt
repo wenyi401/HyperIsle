@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
-        private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB,
-        private val viewModelClass: Class<VM>?
+    private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+    private val viewModelClass: Class<VM>?
 ) : Fragment() {
 
     private val viewModel by lazy {
@@ -22,9 +22,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding = inflate.invoke(inflater, container, false)
         initFragment(binding, viewModel)
