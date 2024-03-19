@@ -38,9 +38,6 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
         if (packageName.equals(Config.SystemUiPackage)) {
             //initWindow();
             MODULE_SP = getSharedPreferences(Config.DEFAULT_STORAGE);
-            XposedBridge.log(MODULE_PATH);
-            XModuleResources res = XModuleResources.createInstance(MODULE_PATH, null);
-            XResources.init(res); // init
 
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 MODULE_CLASS = Config.DaggerReferenceGlobalRootComponent;
