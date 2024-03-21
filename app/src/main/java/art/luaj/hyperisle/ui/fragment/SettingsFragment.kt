@@ -8,8 +8,10 @@ import art.luaj.hyperisle.databinding.FragmentSettingsBinding
 import art.luaj.hyperisle.ext.Tools
 import art.luaj.hyperisle.ui.base.BaseFragment
 
-class SettingsFragment :
-    BaseFragment<FragmentSettingsBinding, ViewModel>(FragmentSettingsBinding::inflate, null) {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding, ViewModel>(
+    FragmentSettingsBinding::inflate,
+    null
+) {
     override fun initFragment(binding: FragmentSettingsBinding, viewModel: ViewModel?) {
 
     }
