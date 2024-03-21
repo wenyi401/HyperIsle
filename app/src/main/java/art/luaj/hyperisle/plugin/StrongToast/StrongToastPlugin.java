@@ -39,6 +39,11 @@ public class StrongToastPlugin extends BasePlugin {
     }
 
     @Override
+    public String getDescription() {
+        return "澎湃系统strong提示";
+    }
+
+    @Override
     public View onBind() {
         LayoutInflater layoutInflater = (LayoutInflater) this.modContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mView = layoutInflater.inflate(R.layout.layout_strongtoast, null);
@@ -46,19 +51,11 @@ public class StrongToastPlugin extends BasePlugin {
         return this.mView;
     }
 
-    /*
-        @Override
-        public String getDescription() {
-            return "澎湃系统strong提示";
-        }
+    @Override
+    public void onUnbind() {
 
-        @Override
-        public View onBind() {
-            return new LinearLayout(mContext);
-        }
+    }
 
-
-     */
     @Override
     public void onCreate(InitPlugin initPlugin) {
         this.plugin = initPlugin;
@@ -69,10 +66,15 @@ public class StrongToastPlugin extends BasePlugin {
         reOnPreDrawListener();
     }
 
+    @Override
+    public void onClick() {
+
+    }
+
     private void init() {
         this.mBinded = mView.findViewById(R.id.vertical_bind);
-        this.mImageView = mView.findViewById(R.id.vertical_image);
-        this.mTextView = mView.findViewById(R.id.vertical_text);
+        this.mImageView = mBinded.findViewById(R.id.vertical_image);
+        this.mTextView = mBinded.findViewById(R.id.vertical_text);
         XC_MethodHook methodHook = new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -112,6 +114,9 @@ public class StrongToastPlugin extends BasePlugin {
         );
     }
 
+    /**
+    * 重定向官方额头 关闭额头显示
+    */
     private void reOnPreDrawListener() {
         XposedHelpers.findAndHookMethod(
             this.pluginController.findClass(Config.StrongToast),
@@ -126,8 +131,6 @@ public class StrongToastPlugin extends BasePlugin {
                             new ViewTreeObserver.OnPreDrawListener() {
                                 @Override
                                 public boolean onPreDraw() {
-                                    // XposedHelpers.setBooleanField(thisObject, "mCheckStartAnimation", true);
-                                    // toast.getViewTreeObserver().removeOnPreDrawListener(this);
                                     return false;
                                 }
                             });

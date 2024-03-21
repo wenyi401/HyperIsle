@@ -19,8 +19,18 @@ public class NotifyPlugin extends BasePlugin {
     }
 
     @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
     public View onBind() {
         return null;
+    }
+
+    @Override
+    public void onUnbind() {
+
     }
 
     @Override
@@ -43,5 +53,10 @@ public class NotifyPlugin extends BasePlugin {
             });
 
          */
+    }
+
+    @Override
+    public void onClick() {
+
     }
 }

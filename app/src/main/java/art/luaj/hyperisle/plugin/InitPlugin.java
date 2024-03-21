@@ -14,30 +14,35 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Optional;
 
 import art.luaj.hyperisle.R;
+import art.luaj.hyperisle.ext.BasePlugin;
 import art.luaj.hyperisle.ext.Tools;
 import art.luaj.hyperisle.ext.XSharedPre;
 import art.luaj.hyperisle.plugin.StrongToast.StrongToastPlugin;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class InitPlugin {
     public int minWidth; // view min width
     public int minHeight; // view min height
-    IntentFilter filter = new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED);
-    private PluginController mPluginController;
+    public WindowManager.LayoutParams mWindow; // window
+    public WindowManager mWindowManager;
+    public View mDarkContent; // view main
+    public boolean mSiteMode; // view site
+    private IntentFilter filter = new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED);
+    private BasePlugin bindPlugin;
+    private PluginController pluginController;
     private XC_LoadPackage.LoadPackageParam loadPackageParam;
-    private Context mContext;
+    private Context context;
     private Context modContext;
-    private WindowManager.LayoutParams mWindow;
-    private XSharedPre xSharedPre;
+    private XSharedPre xsharedPre;
     private ArrayList<String> mQuened = new ArrayList<>();
+    private ArrayList<BasePlugin> mPlugin = PluginData.getPlugins();
     private DisplayMetrics displayMetrics = new DisplayMetrics();
-    private WindowManager mWindowManager;
-    private View mDarkContent; // view
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
@@ -52,21 +57,20 @@ public class InitPlugin {
     };
     private int mView_x;
     private int mView_y;
-    private boolean mSiteMode; // view site
 
     public InitPlugin(PluginController pluginController) {
-        this.mPluginController = pluginController;
-        this.loadPackageParam = this.mPluginController.getLoadParam();
-        this.mContext = this.mPluginController.getContext();
-        this.modContext = this.mPluginController.getModContext();
+        this.pluginController = pluginController;
+        this.loadPackageParam = this.pluginController.getLoadParam();
+        this.context = this.pluginController.getContext();
+        this.modContext = this.pluginController.getModContext();
     }
 
     public PluginController getPluginController() {
-        return this.mPluginController;
+        return this.pluginController;
     }
 
     public XSharedPre getXSharedPre() {
-        return this.xSharedPre;
+        return this.xsharedPre;
     }
 
     public InitPlugin setXSharedPre(XSharedPreferences sharedPreferences) {
@@ -76,6 +80,53 @@ public class InitPlugin {
 
     public int dp(int number) {
         return Tools.dp(modContext, number);
+    }
+
+    public void queueInsert(BasePlugin plugin) {
+        if (!mQuened.contains(plugin.getName())) {
+            if (bindPlugin != null && mPlugin.indexOf(plugin) <  mPlugin.indexOf(bindPlugin)) {
+                mQuened.add(0,  plugin.getName());
+            } else {
+                mQuened.add(plugin.getName());
+            }
+        }
+        bindPlugin();
+    }
+
+    public void queueRemove(BasePlugin plugin) {
+        if (!mQuened.contains(plugin.getName())) {
+            return;
+        } else {
+            mQuened.remove(plugin.getName());
+        }
+        if (bindPlugin != plugin && bindPlugin.getName().equals(plugin.getName())) {
+            bindPlugin = null;
+        }
+        bindPlugin();
+    }
+
+    private void bindPlugin() {
+        if (mQuened.size() <= 0) {
+            if (bindPlugin != null) {
+                bindPlugin.onUnbind();
+                return;
+            }
+        }
+
+        if (bindPlugin != null && mQuened.get(0).equals(bindPlugin.getName())) { return; }
+        if (bindPlugin != null) {  bindPlugin.onUnbind(); }
+        Optional<BasePlugin> optionalBasePlugin  = mPlugin.stream().filter(x -> x.getName().equals(mQuened.get(0))).findFirst();
+        if (optionalBasePlugin.isPresent()) {  return; }
+        bindPlugin = optionalBasePlugin.get();
+        View view = bindPlugin.onBind();
+        View bind = view.findViewById(R.id.vertical_bind);
+        if (bind != null) {
+            // 刷新时删除上一个
+            ViewGroup parent = (ViewGroup) bind.getParent();
+            parent.removeView(parent);
+            parent.addView(view);
+            this.mWindowManager.updateViewLayout(bind, mWindow);
+        }
     }
 
     private void initArg() {
@@ -123,17 +174,6 @@ public class InitPlugin {
         return mParams;
     }
 
-    private void onBind() {
-        View bind = this.mDarkContent.findViewById(R.id.vertical_bind);
-        if (bind != null) {
-            // 刷新时删除上一个
-            ViewGroup parent = (ViewGroup) bind.getParent();
-            parent.removeView(parent);
-            //parent.addView(view);
-            this.mWindowManager.updateViewLayout(this.mDarkContent, this.mWindow);
-        }
-    }
-
     public InitPlugin init() {
         if (mDarkContent == null && mWindowManager == null) {
             initArg();
@@ -142,8 +182,7 @@ public class InitPlugin {
             LayoutInflater layoutInflater = (LayoutInflater) modContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             this.mDarkContent = layoutInflater.inflate(R.layout.overlay_main, null);
             LinearLayout layout = this.mDarkContent.findViewById(R.id.vertical_main);
-            mContext.registerReceiver(broadcastReceiver, filter);
-            XposedBridge.log("a:" + mContext + " b:" + modContext + " c:" + loadPackageParam);
+            context.registerReceiver(broadcastReceiver, filter);
             //  排队
             // Optional<BasePlugin> optionalBasePlugin  = getPlugins().stream().filter(x -> x.getName().equals(mQuened.get(0))).findFirst();
             StrongToastPlugin strongToastPlugin = new StrongToastPlugin();
