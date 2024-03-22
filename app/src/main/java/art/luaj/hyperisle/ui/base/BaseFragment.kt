@@ -13,11 +13,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB,
     private val viewModelClass: Class<VM>?
 ) : Fragment() {
-
+    private var bufferRootView: View? = null
+    private var binding: VB? = null
     private val viewModel by lazy {
         val viewModelProvider = ViewModelProvider(this)
         viewModelClass?.let {
-            viewModelProvider[it]
+            viewModelProvider[viewModelClass]
         }
     }
 
@@ -26,9 +27,18 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = inflate.invoke(inflater, container, false)
-        initFragment(binding, viewModel)
-        return binding.root
+        bufferRootView?.let {
+            return bufferRootView
+        }
+        binding = inflate.invoke(inflater, container, false)
+        initFragment(binding!!, viewModel)
+        bufferRootView = binding!!.root
+        return binding!!.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     abstract fun initFragment(binding: VB, viewModel: VM?)
