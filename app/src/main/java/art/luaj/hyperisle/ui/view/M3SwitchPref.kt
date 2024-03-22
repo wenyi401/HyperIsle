@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import androidx.preference.SwitchPreferenceCompat
 import art.luaj.hyperisle.R
 
-class MaterialSwitchPreference : SwitchPreferenceCompat {
+class M3SwitchPref : SwitchPreferenceCompat {
     init {
-        widgetLayoutResource = R.layout.pref_switch
+        widgetLayoutResource = R.layout.pref_m3_switch
     }
 
     constructor(

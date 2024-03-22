@@ -6,7 +6,7 @@
         android:title="@string/prefs_title_show"
         app:iconSpaceReserved="false">
 
-        <art.luaj.hyperisle.ui.view.MaterialSwitchPreference
+        <art.luaj.hyperisle.ui.view.M3SwitchPref
             android:defaultValue="false"
             android:key="system_preference_hide_icon"
             android:summary="@string/prefs_title_hide_icon_summary"
