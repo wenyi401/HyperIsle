@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">HyperIsle</string>
+    <string name="xposed_description">澎湃定制灵动岛</string>
 
-    <string name="app_main">主页</string>
+    <string name="app_home">主页</string>
     <string name="app_setting">设置</string>
     <string name="app_about">关于</string>
 
     <string name="dialog_alert_tip">提示</string>
-    <string name="xposed_description">澎湃定制灵动岛</string>
 
     <string name="prefs_title_show">显示设置</string>
     <string name="prefs_title_hide_icon">在桌面隐藏模块图标</string>
