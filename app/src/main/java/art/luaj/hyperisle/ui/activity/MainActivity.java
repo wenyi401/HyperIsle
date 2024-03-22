@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.databinding.ActivityMainBinding;
-import art.luaj.hyperisle.ext.BaseActivity;
+import art.luaj.hyperisle.ui.base.BaseActivity;
 import art.luaj.hyperisle.ext.Tools;
 
 public class MainActivity extends BaseActivity {
@@ -40,8 +40,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init() {
-        // StatusBarUtil.with(this).setTransparentStatusBar().setTransparentNavigationBar();
+        //StatusBarUtil.with(this).setTransparentStatusBar().setTransparentNavigationBar();
     }
-
 
 }
