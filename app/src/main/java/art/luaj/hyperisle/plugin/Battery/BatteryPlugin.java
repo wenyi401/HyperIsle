@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.ext.BasePlugin;
+import art.luaj.hyperisle.ext.XLog;
 import art.luaj.hyperisle.plugin.InitPlugin;
 import art.luaj.hyperisle.plugin.PluginController;
 import art.luaj.hyperisle.view.BatteryImageView;
@@ -75,12 +76,11 @@ public class BatteryPlugin extends BasePlugin {
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int status = intent.getExtras().getInt(BatteryManager.EXTRA_STATUS);
-            boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING;
-            if (isCharging) {
+            if (intent.getAction().equals("miui.intent.action.ACTION_SOC_DECIMAL")) {
+                XLog.print("电池");
                 plugin.queueInsert(BatteryPlugin.this);
-                int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                int level = intent.getIntExtra("miui.intent.extra.soc_decimal", 0);
+                int scale = intent.getIntExtra("miui.intent.extra.soc_decimal_rate", 0);
                 batteryPercent = level * 100 / (float) scale;
                 updateView();
             } else {

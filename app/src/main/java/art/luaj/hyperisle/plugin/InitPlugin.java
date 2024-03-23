@@ -20,6 +20,7 @@ import java.util.Optional;
 import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.ext.BasePlugin;
 import art.luaj.hyperisle.ext.Tools;
+import art.luaj.hyperisle.ext.XLog;
 import art.luaj.hyperisle.ext.XSharedPre;
 import art.luaj.hyperisle.plugin.StrongToast.StrongToastPlugin;
 import de.robv.android.xposed.XSharedPreferences;
@@ -115,11 +116,13 @@ public class InitPlugin {
 
         if (bindPlugin != null && mQuened.get(0).equals(bindPlugin.getName())) { return; }
         if (bindPlugin != null) {  bindPlugin.onUnbind(); }
-        Optional<BasePlugin> optionalBasePlugin  = mPlugin.stream().filter(x -> x.getName().equals(mQuened.get(0))).findFirst();
+        Optional<BasePlugin> optionalBasePlugin = mPlugin.stream().filter(x -> x.getName().equals(mQuened.get(0))).findFirst();
         if (optionalBasePlugin.isPresent()) {  return; }
         bindPlugin = optionalBasePlugin.get();
+        bindPlugin.onCreate(this);
         View view = bindPlugin.onBind();
         View bind = view.findViewById(R.id.vertical_bind);
+        XLog.print("布局=" + bind.toString());
         if (bind != null) {
             // 刷新时删除上一个
             ViewGroup parent = (ViewGroup) bind.getParent();
@@ -183,13 +186,8 @@ public class InitPlugin {
             this.mDarkContent = layoutInflater.inflate(R.layout.overlay_main, null);
             LinearLayout layout = this.mDarkContent.findViewById(R.id.vertical_main);
             context.registerReceiver(broadcastReceiver, filter);
-            //  排队
-            // Optional<BasePlugin> optionalBasePlugin  = getPlugins().stream().filter(x -> x.getName().equals(mQuened.get(0))).findFirst();
-            StrongToastPlugin strongToastPlugin = new StrongToastPlugin();
-            strongToastPlugin.onCreate(this);
-
-            layout.addView(strongToastPlugin.onBind());
             mWindowManager.addView(layout, mWindow);
+            bindPlugin();
         }
         return this;
     }
