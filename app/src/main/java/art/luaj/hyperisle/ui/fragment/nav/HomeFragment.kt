@@ -11,9 +11,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, ViewModel>(
     null
 ) {
     override fun initFragment(binding: FragmentHomeBinding, viewModel: ViewModel?) {
+        /*
         binding.button.setOnClickListener {
             requireActivity().findNavController(R.id.mainView)
                 .navigate(R.id.action_mainNavFragment_to_startFragment)
         }
+
+         */
     }
 }
