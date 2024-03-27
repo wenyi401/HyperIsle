@@ -5,14 +5,14 @@
     app:startDestination="@+id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="art.luaj.hyperisle.ui.fragment.nav.HomeFragment"
+        android:name="art.luaj.hyperisle.ui.fragment.mainnav.home.HomeFragment"
         android:label="homeFragment" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="art.luaj.hyperisle.ui.fragment.nav.SettingsFragment"
+        android:name="art.luaj.hyperisle.ui.fragment.mainnav.settings.SettingsFragment"
         android:label="settingsFragment" />
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="art.luaj.hyperisle.ui.fragment.nav.AboutFragment"
+        android:name="art.luaj.hyperisle.ui.fragment.mainnav.about.AboutFragment"
         android:label="aboutFragment" />
 </navigation>

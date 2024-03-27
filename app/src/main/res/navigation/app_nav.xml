@@ -2,18 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/appNav"
-    app:startDestination="@+id/mainNavFragment">
-    <fragment
-        android:id="@+id/mainNavFragment"
-        android:name="art.luaj.hyperisle.ui.fragment.MainNavFragment"
-        android:label="mainNavFragment">
-        <action
-            android:id="@+id/action_mainNavFragment_to_startFragment"
-            app:destination="@id/startFragment" />
-    </fragment>
-
+    app:startDestination="@+id/startFragment">
     <fragment
         android:id="@+id/startFragment"
-        android:name="art.luaj.hyperisle.ui.fragment.StartFragment"
+        android:name="art.luaj.hyperisle.ui.fragment.start.StartFragment"
         android:label="startFragment" />
+    <fragment
+        android:id="@+id/mainNavFragment"
+        android:name="art.luaj.hyperisle.ui.fragment.mainnav.MainNavFragment"
+        android:label="mainNavFragment" />
 </navigation>

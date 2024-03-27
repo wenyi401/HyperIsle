@@ -27,6 +27,6 @@ open class BaseActivity : AppCompatActivity() {
         val typedValue = TypedValue()
         theme.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
         val colorPrimary = typedValue.data
-        window?.statusBarColor = colorPrimary
+        window.statusBarColor = colorPrimary
     }
 }

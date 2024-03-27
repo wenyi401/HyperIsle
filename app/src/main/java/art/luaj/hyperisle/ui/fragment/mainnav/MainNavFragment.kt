@@ -1,9 +1,7 @@
-package art.luaj.hyperisle.ui.fragment
+package art.luaj.hyperisle.ui.fragment.mainnav
 
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.ui.setupWithNavController
 import art.luaj.hyperisle.R
 import art.luaj.hyperisle.databinding.FragmentMainNavBinding

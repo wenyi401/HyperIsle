@@ -1,4 +1,4 @@
-package art.luaj.hyperisle.ui.fragment.nav
+package art.luaj.hyperisle.ui.fragment.mainnav.about
 
 import androidx.lifecycle.ViewModel
 import art.luaj.hyperisle.R
