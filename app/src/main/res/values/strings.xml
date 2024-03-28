@@ -5,8 +5,9 @@
     <string name="app_home">主页</string>
     <string name="app_setting">设置</string>
     <string name="app_about">关于</string>
+
     <string name="app_start_title">欢迎使用</string>
-    <string name="app_start_subtitle">Hyper Isle 需要授权权限以保证某功能的必要条件</string>
+    <string name="app_start_subtitle">Hyper Isle 需要授权权限以保证程序正常运行</string>
     <string name="app_start_per_title_root">Root</string>
     <string name="app_start_per_subtitle_root">保证部分功能完整实用性</string>
     <string name="app_button_click_per">授权</string>
