@@ -1,4 +1,4 @@
-package art.luaj.hyperisle.ui.view
+package art.luaj.hyperisle.ui.view.m3Switch
 
 import android.content.Context
 import android.util.AttributeSet

@@ -8,11 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.os.BatteryManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,7 +19,7 @@ import art.luaj.hyperisle.ext.BasePlugin;
 import art.luaj.hyperisle.ext.XLog;
 import art.luaj.hyperisle.plugin.InitPlugin;
 import art.luaj.hyperisle.plugin.PluginController;
-import art.luaj.hyperisle.view.BatteryImageView;
+import art.luaj.hyperisle.ui.view.BatteryImageView;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class BatteryPlugin extends BasePlugin {

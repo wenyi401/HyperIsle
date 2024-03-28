@@ -1,4 +1,4 @@
-package art.luaj.hyperisle.ui.dialog
+package art.luaj.hyperisle.ui.view.dialog
 
 import android.content.Context
 import android.os.Build

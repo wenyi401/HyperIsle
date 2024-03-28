@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import art.luaj.hyperisle.R;
-import art.luaj.hyperisle.ui.dialog.BlurDialogBuilder;
+import art.luaj.hyperisle.ui.view.dialog.BlurDialogBuilder;
 
 public class Tools {
     public static void showAlert(Context context, String text, boolean cancelable) {
