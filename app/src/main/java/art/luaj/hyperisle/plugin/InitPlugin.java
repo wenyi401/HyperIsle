@@ -22,6 +22,7 @@ import art.luaj.hyperisle.ext.BasePlugin;
 import art.luaj.hyperisle.ext.Tools;
 import art.luaj.hyperisle.ext.XLog;
 import art.luaj.hyperisle.ext.XSharedPre;
+import art.luaj.hyperisle.plugin.Battery.BatteryPlugin;
 import art.luaj.hyperisle.plugin.StrongToast.StrongToastPlugin;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
@@ -187,7 +188,8 @@ public class InitPlugin {
             LinearLayout layout = this.mDarkContent.findViewById(R.id.vertical_main);
             context.registerReceiver(broadcastReceiver, filter);
             mWindowManager.addView(layout, mWindow);
-            bindPlugin();
+            BasePlugin basePlugin = new BatteryPlugin();
+            basePlugin.onCreate(this);
         }
         return this;
     }

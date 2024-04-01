@@ -10,7 +10,6 @@ import art.luaj.hyperisle.ui.base.BaseActivity
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private var sp: SharedPreferences? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

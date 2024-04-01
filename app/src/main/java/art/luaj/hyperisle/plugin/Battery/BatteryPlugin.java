@@ -19,7 +19,6 @@ import art.luaj.hyperisle.ext.BasePlugin;
 import art.luaj.hyperisle.ext.XLog;
 import art.luaj.hyperisle.plugin.InitPlugin;
 import art.luaj.hyperisle.plugin.PluginController;
-import art.luaj.hyperisle.ui.view.BatteryImageView;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class BatteryPlugin extends BasePlugin {
@@ -62,6 +61,11 @@ public class BatteryPlugin extends BasePlugin {
         this.mContext = this.pluginController.getContext();
         this.modContext = this.pluginController.getModContext();
         this.mPackageParam = this.pluginController.getLoadParam();
+        LayoutInflater layoutInflater = (LayoutInflater) this.modContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mView = layoutInflater.inflate(R.layout.layout_battery, null);
+        this.mBinded = mView.findViewById(R.id.vertical_bind);
+        this.mBatteryImageView = (BatteryImageView) mView.findViewById(R.id.vertical_battery);
+        this.mTextView = mView.findViewById(R.id.vertical_text);
         mContext.registerReceiver(mBroadcastReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 

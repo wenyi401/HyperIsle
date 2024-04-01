@@ -1,6 +1,8 @@
 package art.luaj.hyperisle;
 
 import android.content.Context;
+import android.content.res.XModuleResources;
+import android.content.res.XResources;
 import android.os.Build;
 import android.view.WindowManager;
 
@@ -46,6 +48,7 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "context");
+                        XModuleResources.(MODULE_PATH);
                         PluginController pluginController = new PluginController(mContext, loadPackageParam);
                         pluginController.init();
                     }

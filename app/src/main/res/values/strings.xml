@@ -10,6 +10,10 @@
     <string name="app_start_subtitle">Hyper Isle 需要授权权限以保证程序正常运行</string>
     <string name="app_start_per_title_root">Root</string>
     <string name="app_start_per_subtitle_root">保证部分功能完整实用性</string>
+    <string name="app_start_per_title_link">网络</string>
+    <string name="app_start_per_subtitle_link">拥有完全的网络访问权限</string>
+    <string name="app_start_per_title_tip">提示</string>
+    <string name="app_start_per_subtitle_tip">本应用基于Xposed模块开发，请使用Xposed框架运行，使用此模块, 会增加耗电量，并占用系统一部分内存。但不影响日常使用，若觉得有问题，请卸载</string>
     <string name="app_button_click_per">授权</string>
 
     <string name="dialog_alert_tip">提示</string>

@@ -1,4 +1,4 @@
-package art.luaj.hyperisle.ui.view;
+package art.luaj.hyperisle.plugin.Media;
 
 import android.content.Context;
 import android.graphics.Canvas;

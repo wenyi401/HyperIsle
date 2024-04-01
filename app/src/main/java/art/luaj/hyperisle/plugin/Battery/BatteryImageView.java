@@ -1,4 +1,4 @@
-package art.luaj.hyperisle.ui.view;
+package art.luaj.hyperisle.plugin.Battery;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -5,6 +5,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import art.luaj.hyperisle.R
 import art.luaj.hyperisle.databinding.FragmentStartBinding
+import art.luaj.hyperisle.ext.Tools
 import art.luaj.hyperisle.ui.base.BaseFragment
 
 class StartFragment : BaseFragment<FragmentStartBinding, ViewModel>(
@@ -12,8 +13,9 @@ class StartFragment : BaseFragment<FragmentStartBinding, ViewModel>(
     null
 ) {
     override fun initFragment(binding: FragmentStartBinding, viewModel: ViewModel?) {
+
         binding.appGrantRoot.setOnClickListener {
-            //Tools.exec("su", false)
+            Tools.exec("su", false)
 
             findNavController().navigate(
                 R.id.mainNavFragment,

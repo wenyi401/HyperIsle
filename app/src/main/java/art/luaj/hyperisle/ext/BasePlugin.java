@@ -5,11 +5,8 @@ import android.view.View;
 import art.luaj.hyperisle.plugin.InitPlugin;
 
 public abstract class BasePlugin {
-
     public abstract String getName();
-
     public abstract String getDescription();
-
     public abstract View onBind(); // 绑定 view
     public abstract void onUnbind(); // 解绑
     public abstract void onCreate(InitPlugin initPlugin); // 窗口创建
