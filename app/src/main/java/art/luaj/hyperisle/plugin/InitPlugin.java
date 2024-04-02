@@ -188,7 +188,7 @@ public class InitPlugin {
             LinearLayout layout = this.mDarkContent.findViewById(R.id.vertical_main);
             context.registerReceiver(broadcastReceiver, filter);
             mWindowManager.addView(layout, mWindow);
-            BasePlugin basePlugin = new BatteryPlugin();
+            BasePlugin basePlugin = new StrongToastPlugin();
             basePlugin.onCreate(this);
         }
         return this;
