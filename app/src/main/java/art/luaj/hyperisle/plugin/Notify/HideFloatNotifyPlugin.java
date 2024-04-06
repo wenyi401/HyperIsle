@@ -62,11 +62,13 @@ public class HideFloatNotifyPlugin extends BasePlugin {
                 XposedHelpers.setBooleanField(param.thisObject,"mDisableFloatNotification",!notibool);
             }
         };
+        /*
         XposedHelpers.findAndHookMethod(
             this.pluginController.findClass(Config.MiuiNotificationInterruptStateProviderImpl),
             "checkHeadsUp","com.android.systemui.statusbar.notification.collection.NotificationEntry".getClass(),Boolean.class,
             methodHook
         );
+         */
 
     }
 

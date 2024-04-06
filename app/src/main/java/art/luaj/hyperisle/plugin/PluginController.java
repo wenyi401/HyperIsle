@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import art.luaj.hyperisle.BuildConfig;
+import art.luaj.hyperisle.ext.XLog;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
@@ -22,7 +23,7 @@ public class PluginController implements PluginInfo {
                     Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
             }
         } catch (PackageManager.NameNotFoundException e) {
-
+            XLog.print(e.toString());
         }
         this.initPlugin = new InitPlugin(this);
     }
@@ -56,8 +57,7 @@ public class PluginController implements PluginInfo {
         try {
             return this.loadPackageParam.classLoader.loadClass(className);
         } catch (ClassNotFoundException e) {
-            XposedBridge.log(e);
-            e.printStackTrace();
+            XLog.print(e.toString());
             return null;
         }
     }

@@ -22,11 +22,23 @@ import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.ui.view.dialog.BlurDialogBuilder;
 
 public class Tools {
+    /**
+     * 显示提示弹出
+     *
+     * @param context 上下文
+     * @param text 文本
+     * @param cancelable 设置弹窗是否可取消
+     */
     public static void showAlert(Context context, String text, boolean cancelable) {
         AlertDialog dialog = new BlurDialogBuilder(context).setTitle(R.string.dialog_alert_tip).setMessage(text).setCancelable(cancelable).create();
         dialog.show();
     }
 
+    /**
+     * 字符串连接
+     * @param charSequenceArr 文本
+     * @return [String] 返回组合的字符串
+     */
     public static String concat(CharSequence... charSequenceArr) {
         try {
             return TextUtils.concat(charSequenceArr).toString();
@@ -39,11 +51,21 @@ public class Tools {
         }
     }
 
+    /**
+     * 把类转换为json
+     * @param obj 类
+     * @return [String] json文本
+     */
     public static String toJson(Object obj) {
         JSONObject jsonObject = new JSONObject(getFieldMap(obj));
         return jsonObject.toString();
     }
 
+    /**
+     * 获取类字段
+     * @param obj 类
+     * @return [Map] 类字段名称数据
+     */
     private static Map<String, Object> getFieldMap(Object obj) {
         Map<String, Object> map = new HashMap<>();
         for (Field field : obj.getClass().getDeclaredFields()) {
@@ -64,6 +86,11 @@ public class Tools {
         return map;
     }
 
+    /**
+     * 执行命令
+     * @param command 命令
+     * @param isSu 设置是否su执行
+     */
     public static void exec(String command, Boolean isSu) {
         try {
             if (isSu) {
@@ -81,6 +108,12 @@ public class Tools {
         }
     }
 
+    /**
+     * 跳转QQ群
+     * @param context 上下文
+     * @param key 群key
+     * @return 状态
+     */
     public static boolean joinQQGroup(Context context, String key) {
         Intent intent = new Intent();
         intent.setData(Uri.parse(
@@ -95,6 +128,12 @@ public class Tools {
         }
     }
 
+    /**
+     * 获取模块预设的窗口参数
+     * @param width 宽度
+     * @param height 高度
+     * @return 预设的窗口信息
+     */
     public static WindowManager.LayoutParams getWindowParam(int width, int height) {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(width, height, 2017, 0x01800738, -3);
         try {
@@ -108,6 +147,12 @@ public class Tools {
         return layoutParams;
     }
 
+    /**
+     * int转dip
+     * @param context 上下文
+     * @param number 数值
+     * @return 转换后的数值
+     */
     public static int dp(Context context, int number) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, number, context.getResources().getDisplayMetrics());
     }

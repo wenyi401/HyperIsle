@@ -1,7 +1,10 @@
 package art.luaj.hyperisle.ext;
 
+import art.luaj.hyperisle.BuildConfig;
+
 public class Config {
     public static final String DEFAULT_STORAGE = "config_preferences";
+    public static String AppPackage = BuildConfig.APPLICATION_ID;
     public static String SystemUiPackage = "com.android.systemui";
     public static String StrongToast = Tools.concat(SystemUiPackage, ".toast.MIUIStrongToast");
     public static String StatusBarGuideModel = Tools.concat(SystemUiPackage, ".toast.bean.StrongToastModel");

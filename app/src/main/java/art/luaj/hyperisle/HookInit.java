@@ -2,11 +2,12 @@ package art.luaj.hyperisle;
 
 import android.content.Context;
 import android.content.res.XModuleResources;
-import android.content.res.XResources;
 import android.os.Build;
 import android.view.WindowManager;
 
 import art.luaj.hyperisle.ext.Config;
+import art.luaj.hyperisle.ext.XLog;
+import art.luaj.hyperisle.ext.XResources;
 import art.luaj.hyperisle.plugin.PluginController;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
@@ -48,7 +49,6 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "context");
-                        XModuleResources.(MODULE_PATH);
                         PluginController pluginController = new PluginController(mContext, loadPackageParam);
                         pluginController.init();
                     }
@@ -59,14 +59,14 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
         this.MODULE_PATH = startupParam.modulePath;
+        XResources.init(XModuleResources.createInstance(this.MODULE_PATH, null));
     }
 
     private Class<?> getClass(XC_LoadPackage.LoadPackageParam lpparam, String classname) {
         try {
             return lpparam.classLoader.loadClass(classname);
         } catch (ClassNotFoundException e) {
-            XposedBridge.log(e);
-            e.printStackTrace();
+            XLog.print(e.toString());
             return null;
         }
     }
