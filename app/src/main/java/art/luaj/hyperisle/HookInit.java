@@ -1,9 +1,13 @@
 package art.luaj.hyperisle;
 
+import android.app.AndroidAppHelper;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.XModuleResources;
 import android.os.Build;
 import android.view.WindowManager;
+
+import java.lang.reflect.Method;
 
 import art.luaj.hyperisle.ext.Config;
 import art.luaj.hyperisle.ext.XLog;
@@ -62,6 +66,10 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
         XResources.init(XModuleResources.createInstance(this.MODULE_PATH, null));
     }
 
+    public Class<?> findClass(String classname) {
+        return getClass(this.loadPackageParam, classname);
+    }
+
     private Class<?> getClass(XC_LoadPackage.LoadPackageParam lpparam, String classname) {
         try {
             return lpparam.classLoader.loadClass(classname);
@@ -71,8 +79,14 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
         }
     }
 
-    public Class<?> findClass(String classname) {
-        return getClass(this.loadPackageParam, classname);
-    }
+    public void addModuleAssetPath(Context context, String path) {
+        try {
+            Method method = AssetManager.class.getDeclaredMethod("addAssetPath", String.class);
+            method.setAccessible(true);
+            method.invoke(context.getResources(), path);
+        } catch (Exception e) {
+            XLog.print(e.toString());
+        }
 
+    }
 }

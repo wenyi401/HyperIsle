@@ -48,7 +48,7 @@ public class PluginController implements PluginInfo {
     }
 
     @Override
-    public InitPlugin initPlugin() {
+    public InitPlugin initPlugin()  {
         return this.initPlugin;
     }
 
