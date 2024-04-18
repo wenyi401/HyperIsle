@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    alias(libs.plugins.androidApplication)
     alias(libs.plugins.materialthemebuilder)
 }
 
@@ -126,8 +126,8 @@ dependencies {
     implementation(libs.rikkax.core)
     implementation(libs.rikkax.insets)
     implementation(libs.rikkax.parcelablelist)
-    implementation(libs.rikkax.m3)
-    implementation(libs.rikkax.m3.preference)
+    implementation(libs.rikkax.material)
+    implementation(libs.rikkax.material.preference)
     implementation(libs.rikkax.preference)
     implementation(libs.rikkax.layoutinflater)
     implementation(libs.rikkax.recyclerview)

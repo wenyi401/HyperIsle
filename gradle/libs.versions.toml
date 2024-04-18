@@ -1,12 +1,6 @@
 [versions]
 nav = "2.7.6"
 agp = "8.2.2"
-junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
-espresso-core = "3.5.1"
-appcompat = "1.6.1"
-navigation-fragment-ktx = "2.6.0"
-navigation-ui-ktx = "2.6.0"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity", version = "1.8.2" }
@@ -25,8 +19,8 @@ rikkax-appcompat = { module = "dev.rikka.rikkax.appcompat:appcompat", version = 
 rikkax-core = { module = "dev.rikka.rikkax.core:core", version = "1.4.1" }
 rikkax-insets = { module = "dev.rikka.rikkax.insets:insets", version = "1.3.0" }
 rikkax-layoutinflater = { module = "dev.rikka.rikkax.layoutinflater:layoutinflater", version = "1.3.0" }
-rikkax-m3 = { module = "dev.rikka.rikkax.material:material", version = "2.7.0" }
-rikkax-m3-preference = { module = "dev.rikka.rikkax.material:material-preference", version = "2.0.0" }
+rikkax-material = { module = "dev.rikka.rikkax.material:material", version = "2.7.0" }
+rikkax-material-preference = { module = "dev.rikka.rikkax.material:material-preference", version = "2.0.0" }
 rikkax-parcelablelist = { module = "dev.rikka.rikkax.parcelablelist:parcelablelist", version = "2.0.1" }
 rikkax-preference = { module = "dev.rikka.rikkax.material:material-preference", version = "2.0.0" }
 rikkax-recyclerview = { module = "dev.rikka.rikkax.recyclerview:recyclerview-ktx", version = "1.3.2" }
@@ -34,13 +28,8 @@ rikkax-widget-borderview = { module = "dev.rikka.rikkax.widget:borderview", vers
 rikkax-widget-mainswitchbar = { module = "dev.rikka.rikkax.widget:mainswitchbar", version = "1.0.2" }
 
 material = { module = "com.google.android.material:material", version = "1.11.0" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
-androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = "1.4.1" }
