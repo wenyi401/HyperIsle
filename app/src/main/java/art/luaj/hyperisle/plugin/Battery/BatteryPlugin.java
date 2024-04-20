@@ -32,6 +32,40 @@ public class BatteryPlugin extends BasePlugin {
     private TextView mTextView;
     private LinearLayout mBinded;
     private float batteryPercent;
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("miui.intent.action.ACTION_SOC_DECIMAL")) {
+                XLog.print("电池");
+                plugin.queueInsert(BatteryPlugin.this);
+                int level = intent.getIntExtra("miui.intent.extra.soc_decimal", 0);
+                int scale = intent.getIntExtra("miui.intent.extra.soc_decimal_rate", 0);
+                batteryPercent = level * 100 / (float) scale;
+                updateView();
+            } else {
+                plugin.queueRemove(BatteryPlugin.this);
+                if (mTextView != null && mBatteryImageView != null) {
+                    ValueAnimator valueAnimator = ValueAnimator.ofInt(0, plugin.dp(0));
+                    valueAnimator.setDuration(300);
+                    valueAnimator.addUpdateListener(valueAnimator1 -> {
+                        ViewGroup.LayoutParams p = mBatteryImageView.getLayoutParams();
+                        p.width = (int) valueAnimator1.getAnimatedValue();
+                        p.height = (int) valueAnimator1.getAnimatedValue();
+                        mBatteryImageView.setLayoutParams(p);
+                    });
+                    valueAnimator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            mTextView.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    valueAnimator.start();
+                }
+            }
+        }
+    };
+
     @Override
     public String getName() {
         return "BatteryPlugin";
@@ -74,40 +108,6 @@ public class BatteryPlugin extends BasePlugin {
         this.mBatteryImageView = mBinded.findViewById(R.id.vertical_battery);
         this.mTextView = mBinded.findViewById(R.id.vertical_text);
     }
-
-    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("miui.intent.action.ACTION_SOC_DECIMAL")) {
-                XLog.print("电池");
-                plugin.queueInsert(BatteryPlugin.this);
-                int level = intent.getIntExtra("miui.intent.extra.soc_decimal", 0);
-                int scale = intent.getIntExtra("miui.intent.extra.soc_decimal_rate", 0);
-                batteryPercent = level * 100 / (float) scale;
-                updateView();
-            } else {
-                plugin.queueRemove(BatteryPlugin.this);
-                if (mTextView != null && mBatteryImageView != null) {
-                    ValueAnimator valueAnimator = ValueAnimator.ofInt(0, plugin.dp(0));
-                    valueAnimator.setDuration(300);
-                    valueAnimator.addUpdateListener(valueAnimator1 -> {
-                        ViewGroup.LayoutParams p = mBatteryImageView.getLayoutParams();
-                        p.width = (int) valueAnimator1.getAnimatedValue();
-                        p.height = (int) valueAnimator1.getAnimatedValue();
-                        mBatteryImageView.setLayoutParams(p);
-                    });
-                    valueAnimator.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            mTextView.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                    valueAnimator.start();
-                }
-            }
-        }
-    };
 
     private void updateView() {
         if (mView != null) {

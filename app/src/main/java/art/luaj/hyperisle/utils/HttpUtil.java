@@ -15,25 +15,25 @@ import java.util.Map;
 public class HttpUtil {
 
     /**
-    * Http get
-    *
-    * @param url 链接
-    * @return HashMap 数据
-    */
+     * Http get
+     *
+     * @param url 链接
+     * @return HashMap 数据
+     */
     public static HashMap makeRequest(String url) {
-        return  request(url ,null, null);
+        return request(url, null, null);
     }
 
-   /**
-    * Http post
-    *
-    * @param url 链接
-    * @param headers
-    * @param data post 数据
-    * @return HashMap 数据
-    */
+    /**
+     * Http post
+     *
+     * @param url     链接
+     * @param headers
+     * @param data    post 数据
+     * @return HashMap 数据
+     */
     public static HashMap makeRequest(String url, HashMap headers, String data) {
-        return request(url ,headers, data);
+        return request(url, headers, data);
     }
 
     private static void addHeaders(HashMap<String, String> headers, HttpURLConnection httpURLConnection) {

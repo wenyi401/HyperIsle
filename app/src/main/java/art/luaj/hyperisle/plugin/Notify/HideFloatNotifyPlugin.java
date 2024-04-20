@@ -5,7 +5,6 @@ import android.service.notification.StatusBarNotification;
 import android.view.View;
 
 import art.luaj.hyperisle.ext.BasePlugin;
-import art.luaj.hyperisle.ext.Config;
 import art.luaj.hyperisle.plugin.InitPlugin;
 import art.luaj.hyperisle.plugin.PluginController;
 import de.robv.android.xposed.XC_MethodHook;
@@ -52,14 +51,14 @@ public class HideFloatNotifyPlugin extends BasePlugin {
         this.mPackageParam = this.pluginController.getLoadParam();
         XC_MethodHook methodHook = new XC_MethodHook() {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                boolean notibool =false;
-                if(mFcus) {
+                boolean notibool = false;
+                if (mFcus) {
                     //焦点通知不拦截
                     StatusBarNotification sbn = (StatusBarNotification) XposedHelpers.getObjectField(param.args[0], "mSbn");
-                    notibool = (boolean)XposedHelpers.callStaticMethod("com.android.systemui.statusbar.notification.focus.FocusUtils".getClass(), "isFocusNotification", sbn.getNotification());
+                    notibool = (boolean) XposedHelpers.callStaticMethod("com.android.systemui.statusbar.notification.focus.FocusUtils".getClass(), "isFocusNotification", sbn.getNotification());
                 }
                 //通知弹窗拦截
-                XposedHelpers.setBooleanField(param.thisObject,"mDisableFloatNotification",!notibool);
+                XposedHelpers.setBooleanField(param.thisObject, "mDisableFloatNotification", !notibool);
             }
         };
         /*
@@ -72,9 +71,10 @@ public class HideFloatNotifyPlugin extends BasePlugin {
 
     }
 
-    public void setFocusState(boolean focusState){
-        this.mFcus=focusState;
+    public void setFocusState(boolean focusState) {
+        this.mFcus = focusState;
     }
+
     @Override
     public void onClick() {
 

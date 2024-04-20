@@ -25,8 +25,8 @@ public class Tools {
     /**
      * 显示提示弹出
      *
-     * @param context 上下文
-     * @param text 文本
+     * @param context    上下文
+     * @param text       文本
      * @param cancelable 设置弹窗是否可取消
      */
     public static void showAlert(Context context, String text, boolean cancelable) {
@@ -36,6 +36,7 @@ public class Tools {
 
     /**
      * 字符串连接
+     *
      * @param charSequenceArr 文本
      * @return [String] 返回组合的字符串
      */
@@ -53,6 +54,7 @@ public class Tools {
 
     /**
      * 把类转换为json
+     *
      * @param obj 类
      * @return [String] json文本
      */
@@ -63,6 +65,7 @@ public class Tools {
 
     /**
      * 获取类字段
+     *
      * @param obj 类
      * @return [Map] 类字段名称数据
      */
@@ -88,8 +91,9 @@ public class Tools {
 
     /**
      * 执行命令
+     *
      * @param command 命令
-     * @param isSu 设置是否su执行
+     * @param isSu    设置是否su执行
      */
     public static void exec(String command, Boolean isSu) {
         try {
@@ -110,8 +114,9 @@ public class Tools {
 
     /**
      * 跳转QQ群
+     *
      * @param context 上下文
-     * @param key 群key
+     * @param key     群key
      * @return 状态
      */
     public static boolean joinQQGroup(Context context, String key) {
@@ -130,7 +135,8 @@ public class Tools {
 
     /**
      * 获取模块预设的窗口参数
-     * @param width 宽度
+     *
+     * @param width  宽度
      * @param height 高度
      * @return 预设的窗口信息
      */
@@ -149,8 +155,9 @@ public class Tools {
 
     /**
      * int转dip
+     *
      * @param context 上下文
-     * @param number 数值
+     * @param number  数值
      * @return 转换后的数值
      */
     public static int dp(Context context, int number) {

@@ -115,8 +115,8 @@ public class StrongToastPlugin extends BasePlugin {
     }
 
     /**
-    * 重定向官方额头 关闭额头显示
-    */
+     * 重定向官方额头 关闭额头显示
+     */
     private void reOnPreDrawListener() {
         XposedHelpers.findAndHookMethod(
             this.pluginController.findClass(Config.StrongToast),

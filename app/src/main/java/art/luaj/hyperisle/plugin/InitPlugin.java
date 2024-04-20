@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 
 import art.luaj.hyperisle.R;
@@ -23,7 +22,6 @@ import art.luaj.hyperisle.ext.Tools;
 import art.luaj.hyperisle.ext.XLog;
 import art.luaj.hyperisle.ext.XSharedPre;
 import art.luaj.hyperisle.plugin.Battery.BatteryPlugin;
-import art.luaj.hyperisle.plugin.StrongToast.StrongToastPlugin;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
@@ -86,8 +84,8 @@ public class InitPlugin {
 
     public void queueInsert(BasePlugin plugin) {
         if (!mQuened.contains(plugin.getName())) {
-            if (bindPlugin != null && mPlugin.indexOf(plugin) <  mPlugin.indexOf(bindPlugin)) {
-                mQuened.add(0,  plugin.getName());
+            if (bindPlugin != null && mPlugin.indexOf(plugin) < mPlugin.indexOf(bindPlugin)) {
+                mQuened.add(0, plugin.getName());
             } else {
                 mQuened.add(plugin.getName());
             }
@@ -115,10 +113,16 @@ public class InitPlugin {
             }
         }
 
-        if (bindPlugin != null && mQuened.get(0).equals(bindPlugin.getName())) { return; }
-        if (bindPlugin != null) {  bindPlugin.onUnbind(); }
+        if (bindPlugin != null && mQuened.get(0).equals(bindPlugin.getName())) {
+            return;
+        }
+        if (bindPlugin != null) {
+            bindPlugin.onUnbind();
+        }
         Optional<BasePlugin> optionalBasePlugin = mPlugin.stream().filter(x -> x.getName().equals(mQuened.get(0))).findFirst();
-        if (optionalBasePlugin.isPresent()) {  return; }
+        if (optionalBasePlugin.isPresent()) {
+            return;
+        }
         bindPlugin = optionalBasePlugin.get();
         bindPlugin.onCreate(this);
         View view = bindPlugin.onBind();
@@ -188,11 +192,8 @@ public class InitPlugin {
             LinearLayout layout = this.mDarkContent.findViewById(R.id.vertical_main);
             context.registerReceiver(broadcastReceiver, filter);
             mWindowManager.addView(layout, mWindow);
-            /*
             BasePlugin basePlugin = new BatteryPlugin();
             basePlugin.onCreate(this);
-
-             */
         }
         return this;
     }

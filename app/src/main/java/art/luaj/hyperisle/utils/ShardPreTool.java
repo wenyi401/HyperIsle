@@ -1,8 +1,5 @@
 package art.luaj.hyperisle.utils;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 public class ShardPreTool {
 
     /*

@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
     <TextView
         android:id="@+id/vertical_text"
         android:layout_width="wrap_content"
@@ -23,5 +24,5 @@
     <art.luaj.hyperisle.plugin.Battery.BatteryImageView
         android:id="@+id/vertical_battery"
         android:layout_width="0dp"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp" />
 </LinearLayout>

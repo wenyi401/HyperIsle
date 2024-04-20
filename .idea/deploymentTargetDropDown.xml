@@ -5,6 +5,9 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="hidden-api">
+        <State />
+      </entry>
       <entry key="material-library">
         <State />
       </entry>

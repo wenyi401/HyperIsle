@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 
 import art.luaj.hyperisle.BuildConfig;
 import art.luaj.hyperisle.ext.XLog;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class PluginController implements PluginInfo {
@@ -48,7 +47,7 @@ public class PluginController implements PluginInfo {
     }
 
     @Override
-    public InitPlugin initPlugin()  {
+    public InitPlugin initPlugin() {
         return this.initPlugin;
     }
 

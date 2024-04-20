@@ -9,6 +9,7 @@ public class XResources {
 
     /**
      * 初始化
+     *
      * @param resources
      */
     public static void init(XModuleResources resources) {
@@ -17,6 +18,7 @@ public class XResources {
 
     /**
      * 获取layout资源
+     *
      * @param id id值
      * @return xml
      */
@@ -26,6 +28,7 @@ public class XResources {
 
     /**
      * 获取color资源
+     *
      * @param id id值
      * @return int
      */
@@ -35,7 +38,8 @@ public class XResources {
 
     /**
      * 获取color资源
-     * @param id id值
+     *
+     * @param id    id值
      * @param theme 主题
      * @return int
      */
@@ -45,6 +49,7 @@ public class XResources {
 
     /**
      * 获取bool资源
+     *
      * @param id id值
      * @return bool
      */

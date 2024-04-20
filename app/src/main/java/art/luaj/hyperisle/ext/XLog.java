@@ -7,6 +7,7 @@ public class XLog {
 
     /**
      * 打印log内容
+     *
      * @param text 文本
      */
     public static void print(String text) {

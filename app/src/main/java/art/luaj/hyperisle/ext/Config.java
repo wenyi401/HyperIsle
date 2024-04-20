@@ -11,7 +11,6 @@ public class Config {
     public static String NotificationListenerPackage = Tools.concat(SystemUiPackage, ".statusbar.notification.MiuiNotificationListener");
     public static String DaggerReferenceGlobalRootComponent = Tools.concat(SystemUiPackage, ".dagger.DaggerReferenceGlobalRootComponent");
     public static String DaggerGlobalRootComponent = Tools.concat(SystemUiPackage, ".dagger.DaggerGlobalRootComponent");
-
     public static String APP_DEFAULT_STORAGE = "app_default_config";
     public static String MOD_DEFAULT_STORAGE = "mod_default_config";
 }

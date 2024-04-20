@@ -10,6 +10,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, ViewModel>(
     null
 ) {
     override fun initFragment(binding: FragmentAboutBinding, viewModel: ViewModel?) {
-         binding.aboutToolbar.setLogo(R.mipmap.ic_launcher)
+        binding.aboutToolbar.setLogo(R.mipmap.ic_launcher)
     }
 }

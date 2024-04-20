@@ -1,11 +1,11 @@
 package art.luaj.hyperisle;
 
-import android.app.AndroidAppHelper;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.XModuleResources;
 import android.os.Build;
-import android.view.WindowManager;
+
+import com.github.kyuubiran.ezxhelper.EzXHelper;
 
 import java.lang.reflect.Method;
 
@@ -17,11 +17,11 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
+    private String MODELE_TAG = "hyper-isle";
     private String MODULE_PATH;
     private XSharedPreferences MODULE_SP;
     private String MODULE_CLASS;

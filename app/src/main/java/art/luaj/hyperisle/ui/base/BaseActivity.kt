@@ -22,12 +22,16 @@ open class BaseActivity : MaterialActivity() {
     }
 
     override fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
-        theme.applyStyle(rikka.material.preference.R.style.ThemeOverlay_Rikka_Material3_Preference, true)
+        theme.applyStyle(R.style.ThemeOverlay, true)
+        theme.applyStyle(
+            rikka.material.preference.R.style.ThemeOverlay_Rikka_Material3_Preference,
+            true
+        )
     }
 
     override fun onApplyTranslucentSystemBars() {
         super.onApplyTranslucentSystemBars()
-        window.statusBarColor =  Color.TRANSPARENT
+        window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
     }
 
