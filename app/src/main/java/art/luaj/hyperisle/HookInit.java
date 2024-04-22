@@ -5,8 +5,6 @@ import android.content.res.AssetManager;
 import android.content.res.XModuleResources;
 import android.os.Build;
 
-import com.github.kyuubiran.ezxhelper.EzXHelper;
-
 import java.lang.reflect.Method;
 
 import art.luaj.hyperisle.ext.Config;
