@@ -95,20 +95,17 @@ public class Tools {
      * @param command 命令
      * @param isSu    设置是否su执行
      */
-    public static void exec(String command, Boolean isSu) {
-        try {
-            if (isSu) {
-                Process p = Runtime.getRuntime().exec("su");
-                OutputStream outputStream = p.getOutputStream();
-                DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-                dataOutputStream.writeBytes(command);
-                dataOutputStream.flush();
-                dataOutputStream.close();
-                return;
-            } else {
-                Runtime.getRuntime().exec(command);
-            }
-        } catch (Throwable e) {
+    public static void exec(String command, Boolean isSu) throws Exception {
+        if (isSu) {
+            Process p = Runtime.getRuntime().exec("su");
+            OutputStream outputStream = p.getOutputStream();
+            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+            dataOutputStream.writeBytes(command);
+            dataOutputStream.flush();
+            dataOutputStream.close();
+            return;
+        } else {
+            Runtime.getRuntime().exec(command);
         }
     }
 

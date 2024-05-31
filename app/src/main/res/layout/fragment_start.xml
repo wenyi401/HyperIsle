@@ -16,13 +16,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_start_title"
-            android:textColor="?attr/colorPrimary" />
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold"
+            android:typeface="normal" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_start_subtitle"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textStyle="bold"
+            android:typeface="normal" />
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
@@ -50,22 +55,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_start_per_title_root"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="?attr/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_start_per_subtitle_root"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.chip.Chip
                 android:id="@+id/app_grant_root"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/app_button_click_per" />
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -94,14 +99,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_start_per_title_link"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="?attr/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_start_per_subtitle_link"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
 
         </LinearLayout>
@@ -132,14 +137,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_start_per_title_tip"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="?attr/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_start_per_subtitle_tip"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
             </LinearLayout>
 
         </LinearLayout>

@@ -1,7 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.android'
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.materialthemebuilder)
 }
 
 def keyProps = new Properties()
@@ -76,40 +75,6 @@ android {
     }
 }
 
-materialThemeBuilder {
-    themes {
-        [
-                ["Red", "F44336"],
-                ["Pink", "E91E63"],
-                ["Purple", "9C27B0"],
-                ["DeepPurple", "673AB7"],
-                ["Indigo", "3F51B5"],
-                ["Blue", "2196F3"],
-                ["LightBlue", "03A9F4"],
-                ["Cyan", "00BCD4"],
-                ["Teal", "009688"],
-                ["Green", "4FAF50"],
-                ["LightGreen", "8BC3A4"],
-                ["Lime", "CDDC39"],
-                ["Yellow", "FFEB3B"],
-                ["Amber", "FFC107"],
-                ["Orange", "FF9800"],
-                ["DeepOrange", "FF5722"],
-                ["Brown", "795548"],
-                ["BlueGrey", "607D8F"],
-                ["Sakura", "FF9CA8"]
-        ].each { color ->
-            def name = color[0]
-            def value = color[1]
-            create("Material${name}") {
-                lightThemeFormat = "ThemeOverlay.Light.%s"
-                darkThemeFormat = "ThemeOverlay.Dark.%s"
-                primaryColor = "#${value}"
-            }
-        }
-    }
-    generatePalette = true
-}
 
 dependencies {
     compileOnly fileTree(dir: 'libs/compile_only', include: ['*.jar'])
@@ -124,11 +89,4 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.material)
-    implementation(libs.bundles.rikkax)
-}
-
-configurations.configureEach {
-    exclude group: "androidx.appcompat", module: "appcompat"
-    exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib-jdk7"
-    exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib-jdk8"
 }

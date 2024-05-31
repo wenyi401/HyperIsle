@@ -1,38 +1,22 @@
-package art.luaj.hyperisle.ui.base
+package art.luaj.hyperisle.ext
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import art.luaj.hyperisle.R
-import art.luaj.hyperisle.ui.utils.isSystemInDarkMode
+import art.luaj.hyperisle.utils.factory.isSystemInDarkMode
 import com.google.android.material.internal.EdgeToEdgeUtils
-import rikka.material.app.MaterialActivity
 
-open class BaseActivity : MaterialActivity() {
+open class BaseActivity : AppCompatActivity() {
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
         EdgeToEdgeUtils.applyEdgeToEdge(window, true)
-        //initBar()
-    }
-
-    override fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
-        theme.applyStyle(R.style.ThemeOverlay, true)
-        theme.applyStyle(
-            rikka.material.preference.R.style.ThemeOverlay_Rikka_Material3_Preference,
-            true
-        )
-    }
-
-    override fun onApplyTranslucentSystemBars() {
-        super.onApplyTranslucentSystemBars()
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+        initBar()
     }
 
     private fun initBar() {

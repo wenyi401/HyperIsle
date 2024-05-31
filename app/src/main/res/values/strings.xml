@@ -6,6 +6,8 @@
     <string name="app_setting">设置</string>
     <string name="app_about">关于</string>
 
+    <string name="app_link_error">网络不可用，请检查网络情况</string>
+
     <string name="app_start_title">欢迎使用</string>
     <string name="app_start_subtitle">Hyper Isle 需要授权权限以保证程序正常运行</string>
     <string name="app_start_per_title_root">Root</string>

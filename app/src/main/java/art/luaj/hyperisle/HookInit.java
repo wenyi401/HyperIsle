@@ -7,18 +7,17 @@ import android.os.Build;
 
 import java.lang.reflect.Method;
 
+import art.luaj.hyperisle.ext.BaseHook;
 import art.luaj.hyperisle.ext.Config;
 import art.luaj.hyperisle.ext.XLog;
 import art.luaj.hyperisle.ext.XResources;
 import art.luaj.hyperisle.plugin.PluginController;
-import de.robv.android.xposed.IXposedHookLoadPackage;
-import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
+public class HookInit extends BaseHook {
     private String MODELE_TAG = "hyper-isle";
     private String MODULE_PATH;
     private XSharedPreferences MODULE_SP;
@@ -33,7 +32,7 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     }
 
     @Override
-    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
+    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) {
         String packageName = loadPackageParam.packageName;
         if (packageName.equals(Config.SystemUiPackage)) {
             this.loadPackageParam = loadPackageParam;
@@ -59,22 +58,9 @@ public class HookInit implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     }
 
     @Override
-    public void initZygote(StartupParam startupParam) throws Throwable {
+    public void initZygote(StartupParam startupParam) {
         this.MODULE_PATH = startupParam.modulePath;
         XResources.init(XModuleResources.createInstance(this.MODULE_PATH, null));
-    }
-
-    public Class<?> findClass(String classname) {
-        return getClass(this.loadPackageParam, classname);
-    }
-
-    private Class<?> getClass(XC_LoadPackage.LoadPackageParam lpparam, String classname) {
-        try {
-            return lpparam.classLoader.loadClass(classname);
-        } catch (ClassNotFoundException e) {
-            XLog.print(e.toString());
-            return null;
-        }
     }
 
     public void addModuleAssetPath(Context context, String path) {
