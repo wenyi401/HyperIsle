@@ -78,6 +78,8 @@ android {
 
 dependencies {
     compileOnly fileTree(dir: 'libs/compile_only', include: ['*.jar'])
+    compileOnly project(":hidden-api")
+
     implementation(libs.androidx.activity)
     implementation(libs.androidx.browser)
     implementation(libs.androidx.constraintlayout)

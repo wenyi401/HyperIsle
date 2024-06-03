@@ -22,9 +22,9 @@ import com.google.android.material.chip.Chip;
 import art.luaj.hyperisle.R;
 import art.luaj.hyperisle.databinding.FragmentStartBinding;
 import art.luaj.hyperisle.ext.BaseFragment;
-import art.luaj.hyperisle.ext.Tools;
 import art.luaj.hyperisle.ui.view.dialog.BlurDialogBuilder;
 import art.luaj.hyperisle.utils.RootCheck;
+import art.luaj.hyperisle.utils.ShellUtil;
 
 
 public class StartFragment extends BaseFragment<FragmentStartBinding> {
@@ -45,7 +45,7 @@ public class StartFragment extends BaseFragment<FragmentStartBinding> {
         this.appGrantRoot = binding.appGrantRoot;
         appGrantRoot.setOnClickListener(v -> {
             try {
-                Tools.exec("su", false);
+                ShellUtil.exec("su", false);
             } catch (Exception e) {
             }
         });
@@ -82,8 +82,12 @@ public class StartFragment extends BaseFragment<FragmentStartBinding> {
         //navController.navigate(R.id.mainNavFragment);
     }
 
+    /**
+     * 判断网络权限
+     * @return root状态
+     */
     private boolean checkRoot() {
-        return RootCheck.hasRootPrivilege();
+        return RootCheck.hasRootPrivilege() == 0 ? true : false;
     }
 
     /**

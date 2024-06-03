@@ -8,6 +8,10 @@
         android:name="art.luaj.hyperisle.ui.fragment.start.StartFragment"
         android:label="startFragment" />
     <fragment
+        android:id="@+id/toastFragment"
+        android:name="art.luaj.hyperisle.ui.fragment.toast.ToastFragment"
+        android:label="toastFragment" />
+    <fragment
         android:id="@+id/mainNavFragment"
         android:name="art.luaj.hyperisle.ui.fragment.mainnav.MainNavFragment"
         android:label="mainNavFragment" />
